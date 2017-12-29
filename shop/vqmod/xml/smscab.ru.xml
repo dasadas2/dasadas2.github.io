@@ -1,0 +1,524 @@
+<modification>
+	<id>smscab.ru gate</id>
+	<version>0.5.7.4</version>
+	<vqmver>0.5.7.4</vqmver>
+	<author>smscab.ru</author>
+
+	<file name="admin/controller/setting/setting.php">
+		<operation>
+			<search position="replace" offset="4">
+			<![CDATA[
+		if (isset($this->request->post['config_sms_alert'])) {
+			]]>
+			</search>
+			<add>
+			<![CDATA[
+		if (isset($this->request->post['config_sms_alert'])) {
+			$this->data['config_sms_alert'] = $this->request->post['config_sms_alert'];
+		} else {
+			$this->data['config_sms_alert'] = $this->config->get('config_sms_alert');
+		}
+        
+        if (isset($this->request->post['config_sms_alert_client'])) {
+            $this->data['config_sms_alert_client'] = $this->request->post['config_sms_alert_client'];
+        } else {
+            $this->data['config_sms_alert_client'] = $this->config->get('config_sms_alert_client');
+        }
+        
+        if (isset($this->request->post['config_sms_message2client'])) {
+            $this->data['config_sms_message2client'] = $this->request->post['config_sms_message2client'];
+        } else {
+            $this->data['config_sms_message2client'] = $this->config->get('config_sms_message2client');
+        }
+        
+        if (isset($this->request->post['config_sms_message2status'])) {
+            $this->data['config_sms_message2status'] = $this->request->post['config_sms_message2status'];
+        } else {
+            $this->data['config_sms_message2status'] = $this->config->get('config_sms_message2status');
+        }
+        
+        if (isset($this->request->post['config_sms_alert_status'])) {
+            $this->data['config_sms_alert_status'] = $this->request->post['config_sms_alert_status'];
+        } else {
+            $this->data['config_sms_alert_status'] = $this->config->get('config_sms_alert_status');
+        }
+                
+        if (isset($this->request->post['config_sms_alert_admin'])) {
+            $this->data['config_sms_alert_admin'] = $this->request->post['config_sms_alert_admin'];
+        } else {
+            $this->data['config_sms_alert_admin'] = $this->config->get('config_sms_alert_admin');
+        }
+                
+        if (isset($this->request->post['config_sms_phone2shipping'])) {
+            $this->data['config_sms_phone2shipping'] = $this->request->post['config_sms_phone2shipping'];
+        } else {
+            $this->data['config_sms_phone2shipping'] = $this->config->get('config_sms_phone2shipping');
+        }
+        
+			]]>
+			</add>
+		</operation>
+		<operation>
+			<search position="after">
+			<![CDATA[
+		$this->data['entry_sms_alert'] = $this->language->get('entry_sms_alert');
+			]]>
+			</search>
+			<add>
+			<![CDATA[
+		$this->data['entry_sms_alert_client'] = $this->language->get('entry_sms_alert_client');
+		$this->data['entry_sms_message2client'] = $this->language->get('entry_sms_message2client');
+		$this->data['entry_sms_alert_status'] = $this->language->get('entry_sms_alert_status');
+		$this->data['entry_sms_message2status'] = $this->language->get('entry_sms_message2status');
+		$this->data['entry_sms_alert_admin'] = $this->language->get('entry_sms_alert_admin');
+    $this->data['info_sms_message'] = $this->language->get('info_sms_message');
+    $this->data['entry_sms_phone2shipping'] = $this->language->get('entry_sms_phone2shipping');
+    $this->data['info_sms_phone2shipping'] = $this->language->get('info_sms_phone2shipping');
+			]]>
+			</add>
+		</operation>
+	</file>
+
+
+	<file name="admin/language/english/setting/setting.php">
+		<operation>
+			<search position="before">
+			<![CDATA[?>]]>
+			</search>
+			<add>
+			<![CDATA[
+$_['entry_sms_alert']          		= 'Enable SMS notifications:';
+$_['entry_sms_alert_client']	 = 'Send Sms alert to client:';
+$_['entry_sms_alert_admin']	 = 'Send Sms alert to admin:';
+$_['entry_sms_alert_status']	 = 'Send Sms alert to client on order status change:';
+$_['entry_sms_message2client']	 = 'Message to client:';
+$_['entry_sms_message2status']	 = 'Message on order status change:';
+$_['info_sms_message'] 				= '<span class="help"><b>You can use the tags</b>:<br/>{ID} - order number<br/>{DATE},{TIME} - date and time of the formation of the order<br/>{SUM} - the amount of the order<br/>{PHONE} - client phone<br/>{CLIENTFIRSTNAME} - client firstname<br/>{CLIENTLASTNAME} - client lastname<br/>{FULLITEMS} - list and the amount of goods ordered<br/>{CITY} - city delivery<br/>{ADDRESS} - address delivery</span>';
+$_['entry_sms_phone2shipping']	 = 'Personal phone to shipping method:';
+$_['info_sms_phone2shipping']	 = '<span class="help"><b>Не обязательное поле (можно оставить пустым).</b><br>
+                                  Если заполнить, то для указанных методов доставки уведомления о заказе будут дополнительно отправляться и на указанные телефоны (например в курьерскую службу).<br>
+                                  Заполнять нужно в формате <br> 
+                                  <b>ИмяМодуляДоставки:НомераТелефоновЧерезЗапятую</b><br>
+                                  по одной паре значений в строке<br>
+                                  Например:<br>
+                                  <b>flat:7918xxyyzzz,7928zzxxyyy<br>
+                                  free:7928zzxxyyy,7906xxzzyyy<br>
+                                  pickup:7906xxzzyyy<br></b>
+                                  и т.д. ...<br>
+                                  имена модулей доставки можно увидеть в адресной строке при редактировании их настроек (в параметре <b>route</b>)<br>
+                                  например:<br> 
+                                  если <b>route=shipping/citylink</b><br>
+                                  то имя модуля - <b>citylink</b>';
+]]>
+			</add>
+		</operation>
+	</file>
+	
+	
+	
+	
+	<file name="admin/language/russian/setting/setting.php">
+		<operation>
+			<search position="before">
+			<![CDATA[?>]]>
+			</search>
+			<add>
+			<![CDATA[
+$_['entry_sms_alert']          		= 'Включить SMS уведомления:';
+$_['entry_sms_alert_client']	    = 'Уведомлять клиента по SMS:';
+$_['entry_sms_alert_admin']	    = 'Уведомлять администратора по SMS:';
+$_['entry_sms_alert_status']	    = 'Уведомлять клиента при смене статуса заказа:';
+$_['entry_sms_message2client']	 = 'Текст сообщения для клиента:';
+$_['entry_sms_message2status']	 = 'Текст сообщения при смене статуса заказа:';
+$_['info_sms_message'] 				= '<span class="help"><b>Разрешено использовать теги</b>:<br/>{ID} - номер заказа<br/>{DATE} - дата заказа<br/>{TIME} - время заказа<br/>{SUM} - сумма заказа<br/>{SUMREAL} - сумма заказа в валюте покупателя<br/>{PHONE} - телефон клиента<br/>{CLIENTFIRSTNAME} - имя клиента<br/>{CLIENTLASTNAME} - фамилия клиента<br/>{FULLITEMS} - список наименований и количество заказанных товаров<br/>{LITEITEMS} - список моделей и количество заказанных товаров<br/>{CITY} - город доставки<br/>{ADDRESS} - адрес доставки</span>';
+$_['entry_sms_phone2shipping']	 = 'Дополнительные номера для конкретных методов доставки:';
+$_['info_sms_phone2shipping']	 = '<span class="help"><b>Не обязательное поле (можно оставить пустым).</b><br>
+                                  Если заполнить, то для указанных методов доставки уведомления о заказе будут дополнительно отправляться и на указанные телефоны (например в курьерскую службу).<br>
+                                  Заполнять нужно в формате <br> 
+                                  <b>ИмяМодуляДоставки:НомераТелефоновЧерезЗапятую</b><br>
+                                  по одной паре значений в строке<br>
+                                  Например:<br>
+                                  <b>flat:7918xxyyzzz,7928zzxxyyy<br>
+                                  free:7928zzxxyyy,7906xxzzyyy<br>
+                                  pickup:7906xxzzyyy<br></b>
+                                  и т.д. ...<br>
+                                  имена модулей доставки можно увидеть в адресной строке при редактировании их настроек (в параметре <b>route</b>)<br>
+                                  например:<br> 
+                                  если <b>route=shipping/citylink</b><br>
+                                  то имя модуля - <b>citylink</b>';
+]]>
+			</add>
+		</operation>
+	</file>
+	
+	
+	
+	
+	<file name="admin/view/template/common/header.tpl">
+
+		<operation error="skip">
+			<search position="before">
+			<![CDATA[</head>]]>
+			</search>
+			<add>
+      <![CDATA[
+        <style type="text/css">
+        #content { min-width: 975px !important; }
+        /*#tab-sms { margin-top: 70px; }*/        
+        </style>
+      ]]>
+			</add>
+		</operation>  
+	
+  </file>
+	
+	<file name="admin/view/template/setting/setting.tpl">
+	
+		<operation error="skip">
+			<search position="replace">
+			<![CDATA[<td><?php echo $info_sms_message; ?></td>]]>
+			</search>
+			<add>
+			</add>
+		</operation>
+		<operation>
+			<search position="replace">
+			<![CDATA[
+              <td><?php echo $entry_sms_from; ?></td>
+			]]>
+			</search>
+			<add>
+			<![CDATA[
+			
+              <td><?php echo $entry_sms_alert_admin; ?></td>
+              <td><?php if ($config_sms_alert_admin) { ?>
+                <input type="radio" name="config_sms_alert_admin" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_admin" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="config_sms_alert_admin" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_admin" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+            </tr>
+            <tr>
+			
+              <td><?php echo $entry_sms_alert_client; ?></td>
+              <td><?php if ($config_sms_alert_client) { ?>
+                <input type="radio" name="config_sms_alert_client" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_client" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="config_sms_alert_client" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_client" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+            </tr>
+            <tr>
+              <td><?php echo $entry_sms_message2client; ?></td>
+              <td><textarea name="config_sms_message2client" cols="40" rows="5"><?php echo $config_sms_message2client; ?></textarea></td>
+			         <td><?php echo $info_sms_message; ?></td>
+            </tr>
+            <tr>
+      
+              <td><?php echo $entry_sms_alert_status; ?></td>
+              <td><?php if ($config_sms_alert_status) { ?>
+                <input type="radio" name="config_sms_alert_status" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_status" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="config_sms_alert_status" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_sms_alert_status" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+            </tr>
+            <tr>
+              <td><?php echo $entry_sms_message2status; ?></td>
+              <td><textarea name="config_sms_message2status" cols="40" rows="5"><?php echo $config_sms_message2status; ?></textarea></td>
+			         <td><?php echo $info_sms_message; ?><span class="help">
+               {STATUS} - новый статус заказа<br>
+               {COMMENT} - комментарий к смене статуса</span></td>
+            </tr>
+            <tr>
+        
+              <td><?php echo $entry_sms_from; ?></td>
+			]]>
+			</add>
+		</operation>
+		<operation>
+			<search position="replace">
+			<![CDATA[><?php echo $config_sms_message; ?></textarea>]]>
+			</search>
+			<add>
+      <![CDATA[><?php echo $config_sms_message; ?></textarea></td>
+			  <td><?php echo $info_sms_message; ?></td>]]>
+			</add>
+		</operation>
+		
+     <operation>
+			<search position="replace">
+			<![CDATA[<?php echo $entry_sms_message; ?>]]>
+			</search>
+			<add>
+      <![CDATA[<?php echo $entry_sms_phone2shipping; ?></td>
+              <td><textarea name="config_sms_phone2shipping" cols="40" rows="5"><?php echo $config_sms_phone2shipping; ?></textarea></td>
+			  <td><?php echo $info_sms_phone2shipping; ?></td>
+            </tr>
+            <tr>
+              <td><?php echo $entry_sms_message; ?>]]>
+			</add>
+		</operation>
+
+        
+	</file>
+	
+	
+	
+	
+	<file name="catalog/model/checkout/order.php">
+		<operation error="skip">
+			<search position="replace">
+			<![CDATA[
+			// Send Admins SMS if configure
+			]]>
+			</search>
+			<add>
+			</add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="16">
+			<![CDATA[
+			if ($this->config->get('config_sms_alert')) {
+			]]>
+			</search>
+			<add>
+			</add>
+		</operation>
+		<operation>
+			<search position="replace" offset="5">
+			<![CDATA[
+					if ($email && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
+			]]>
+			</search>
+			<add>
+			<![CDATA[
+					if ($email && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
+						$mail->setTo($email);
+						$mail->send();
+					}
+				}				
+			}
+
+			// Send Admins SMS if configure
+			if ($this->config->get('config_sms_alert')) {
+
+                $fullitems_query = $this->db->query("SELECT GROUP_CONCAT(' ', `name`, ' (', `quantity`, ')') as `fullitems`,
+                                                            GROUP_CONCAT(' ', `model`, ' (', `quantity`, ')') as `liteitems`
+                                                     FROM `" . DB_PREFIX . "order_product` where `order_id` = " . (int)$order_id);
+                $order_info['fullitems'] = $fullitems_query->row['fullitems'];
+                $order_info['liteitems'] = $fullitems_query->row['liteitems'];
+                
+                $order_info['sumreal'] = $this->currency->format(floatval($order_info['total']), $order_info['currency_code'], $order_info['currency_value']);
+                                
+                $ext = array(
+                  'order_info' => $order_info,
+                  'config_sms_alert_client' => $this->config->get('config_sms_alert_client'),
+                  'config_sms_alert_admin' => $this->config->get('config_sms_alert_admin')
+                );
+
+				$options = array(
+					'to'       => $this->config->get('config_sms_to'),
+					'copy'     => $this->config->get('config_sms_copy'),
+					'from'     => $this->config->get('config_sms_from'),
+					'login' => $this->config->get('config_sms_gate_username'),
+					'password' => $this->config->get('config_sms_gate_password'),
+					'message'  => str_replace(array('{ID}', '{DATE}', '{TIME}', '{SUM}', '{PHONE}'), 
+											  array($order_id, date('d.m.Y'), date('H:i'), floatval($order_info['total']), $order_info['telephone']), 
+											  $this->config->get('config_sms_message')),
+                    'message2client'  => str_replace(array('{ID}', '{DATE}', '{TIME}', '{SUM}', '{PHONE}'), 
+                                              array($order_id, date('d.m.Y'), date('H:i'), floatval($order_info['total']), $order_info['telephone']), 
+                                              $this->config->get('config_sms_message2client')),
+					'ext'      => $ext
+				);
+				
+				# добавление получателей для конкретных методов доставки
+				if(trim($this->config->get('config_sms_phone2shipping')) != "") {
+          $tmp = explode("\n", trim($this->config->get('config_sms_phone2shipping')));
+          
+          foreach($tmp as $str) {
+            $tmp2 = explode(':', trim($str));
+            $shipping_code = $tmp2["0"].'.'.$tmp2["0"];
+            $phone2shipping[$shipping_code] = $tmp2["1"];
+          }
+          
+          if(isset($phone2shipping[$order_info['shipping_code']])) {
+            $options['copy'] = ltrim($options['copy'].','.$phone2shipping[$order_info['shipping_code']], ',');
+          }
+        }
+
+				$this->load->library('sms');
+
+				$sms = new Sms($this->config->get('config_sms_gatename'), $options);
+				$sms->send();
+			}
+			]]>
+			</add>
+		</operation>
+	</file>
+	
+	
+	
+
+
+
+
+
+	<file name="admin/language/english/sale/order.php">
+		<operation>
+			<search position="before">
+			<![CDATA[?>]]>
+			</search>
+			<add>
+			<![CDATA[
+$_['entry_notify'] = 'Notify Customer on E-Mail:';
+]]>
+			</add>
+		</operation>
+	</file>
+	
+	
+	
+	
+	<file name="admin/language/russian/sale/order.php">
+		<operation>
+			<search position="before">
+			<![CDATA[?>]]>
+			</search>
+			<add>
+			<![CDATA[
+$_['entry_notify'] = 'Уведомить покупателя по E-Mail:';
+]]>
+			</add>
+		</operation>
+	</file>
+
+
+	
+	
+  <file name="admin/view/template/sale/order_info.tpl">
+  
+  
+  	<operation>
+  	<search position="replace" error="skip"><![CDATA[name="notify"]]></search>
+  	<add>
+  		<![CDATA[ name="notify" checked ]]>
+  	</add>
+  	</operation>
+  
+  	<operation>
+  	<search position="before"><![CDATA[<td><?php echo $entry_comment; ?></td>]]></search>
+  	<add>
+  		<![CDATA[
+            <td>Уведомить покупателя по sms</td>
+            <td><input type="checkbox" name="notify_sms" value="1" <?php if($this->config->get('config_sms_alert_status')) echo "checked"; ?> /></td>
+          </tr>
+          <tr>
+            <td>Добавить в sms комментарий</td>
+            <td><input type="checkbox" name="notify_sms_comment" value="1" /></td>
+          </tr>
+          <tr>
+  		]]>
+  	</add>
+  	</operation>
+  	
+  	<operation>
+  	<search position="replace"><![CDATA[data: 'order_status_id=' + encodeURIComponent($('select[name=\'order_status_id\']').val()) + '&notify=' + encodeURIComponent($('input[name=\'notify\']').attr('checked') ? 1 : 0) + '&append=' + encodeURIComponent($('input[name=\'append\']').attr('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),]]></search>
+  	<add>
+  		<![CDATA[data: 'order_status_id=' + encodeURIComponent($('select[name=\'order_status_id\']').val()) + '&notify=' + encodeURIComponent($('input[name=\'notify\']').attr('checked') ? 1 : 0) + '&notify_sms=' + encodeURIComponent($('input[name=\'notify_sms\']').attr('checked') ? 1 : 0) + '&notify_sms_comment=' + encodeURIComponent($('input[name=\'notify_sms_comment\']').attr('checked') ? 1 : 0) + '&append=' + encodeURIComponent($('input[name=\'append\']').attr('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),]]>
+  	</add>
+  	</operation>
+  </file>
+	
+	
+  <file name="admin/model/sale/order.php">
+  	<operation>
+  	<search position="before"><![CDATA[public function getTotalOrderHistoriesByOrderStatusId($order_status_id) {]]></search>
+  	<add>
+  		<![CDATA[
+  			// [BEGIN]
+  
+  			public function getStatusName($order_status_id) {
+  			$query = $this->db->query("SELECT `name` FROM `" . DB_PREFIX . "order_status` WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "' LIMIT 1");
+  
+  			return $query->row['name'];
+  			}
+  			// [END]
+  		]]>
+  	</add>
+  	</operation>
+  </file>
+	
+	
+  <file name="admin/controller/sale/order.php">
+  	<operation>
+  	<search position="before"><![CDATA[$this->model_sale_order->addOrderHistory($this->request->get['order_id'], $this->request->post);]]></search>
+  	<add>
+  		<![CDATA[
+  			if ($this->request->post['notify_sms']) {
+  
+  				$order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
+  				$order_id = $this->request->get['order_id'];
+  
+  				if ($order_info['order_status_id'] != $this->request->post['order_status_id'] || $this->request->post['notify_sms_comment']) {
+  				
+                        $fullitems_query = $this->db->query("SELECT GROUP_CONCAT(' ', `name`, ' (', `quantity`, ')') as `fullitems`,
+                                                                    GROUP_CONCAT(' ', `model`, ' (', `quantity`, ')') as `liteitems`
+                                                             FROM `" . DB_PREFIX . "order_product` where `order_id` = " . (int)$order_id);
+                        $order_info['fullitems'] = $fullitems_query->row['fullitems'];
+                        $order_info['liteitems'] = $fullitems_query->row['liteitems'];
+                        
+                        $order_info['sumreal'] = $this->currency->format(floatval($order_info['total']), $order_info['currency_code'], $order_info['currency_value']);
+//                        $order_info['sum'] = $this->currency->format(floatval($order_info['total']));
+                                        
+                        $ext = array(
+                          'order_info' => $order_info,
+                          'config_sms_alert_client' => 0,
+                          'config_sms_alert_admin' => 1
+                        );
+
+                        $options = array(
+                            'to'       => $order_info['telephone'],
+                            'copy'     => '',
+                            'from'     => $this->config->get('config_sms_from'),
+                            'login' => $this->config->get('config_sms_gate_username'),
+                            'password' => $this->config->get('config_sms_gate_password'),
+                            'message'  => str_replace(array('{ID}', '{DATE}', '{TIME}', '{SUM}', '{PHONE}', '{STATUS}'), 
+                                                      array($this->request->get['order_id'], date('d.m.Y'), date('H:i'), floatval($order_info['total']), $order_info['telephone'],
+                                                            $this->model_sale_order->getStatusName($this->request->post['order_status_id'])), 
+                                                      $this->config->get('config_sms_message2status')),
+                            'ext'      => $ext
+                        );
+                        
+                        if($this->request->post['notify_sms_comment']) $options['message'] = str_replace('{COMMENT}', $this->request->post['comment'], $options['message']);
+                        else $options['message'] = str_replace('{COMMENT}', '', $options['message']);
+
+                        $this->load->library('sms');
+
+                        $sms = new Sms($this->config->get('config_sms_gatename'), $options);
+                        $sms->send();    
+                
+  				}
+  			}
+  		]]>
+  	</add>
+  	</operation>
+  </file>
+	
+	
+</modification>

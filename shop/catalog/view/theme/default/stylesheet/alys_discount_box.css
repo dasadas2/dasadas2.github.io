@@ -1,0 +1,78 @@
+.region-confirm-form {
+	width:510px;
+	height:250px;
+	display: none;
+	z-index: 999;
+	position: fixed;
+	top: 30%;
+	left:50%;
+	margin-left:-255px;
+	z-index:999;
+	padding-top:27px;
+	/*background:url(../images/wooden-bg.png) scroll repeat 0 0;*/
+	
+	
+	 background-color: #f8f1b3;
+    border: 1px solid #fcefa1;
+    border-radius: 4px;
+    color: #363636;
+	
+	text-align:center;
+	box-shadow: 1px 6px 10px rgba(50, 50, 50, 0.5);
+	
+	
+}
+.region-confirm-form p {
+	color:#542c12;
+}
+.region-confirm-form p.city-name {
+	margin-top:8px;
+	font-size:24px;
+	font-weight:bold;
+}
+.region-confirm-form .city-variant {
+	display:block;
+	width:81px;
+	margin-top:10px;
+	font-size:14px;
+	color:#542c12;
+	text-decoration:none;
+	padding:10px 30px 20px 30px;
+	text-align:center;
+	font-weight:bold;
+}
+.region-confirm-form .city-variant:hover {
+	color:#542c12;
+	text-decoration:unreline;
+}
+.region-confirm-form .city-variant.yes {
+	float:left;
+	margin-left:190px;
+	position:absolute;
+	bottom:0;
+}
+.region-confirm-form .city-variant.no {
+	float:right;
+	margin-right:52px;
+}
+.region-confirm-form .city-variant span {
+	cursor:pointer;
+	/*background-image:url(../images/region-confirm-btns.png);*/
+	background-repeat:no-repeat;
+	display:block;
+	height:82px;
+	width:81px;
+	margin-bottom:8px;
+}
+.region-confirm-form .city-variant.yes span {
+	background-position:0 0;
+}
+.region-confirm-form .city-variant.no span {
+	background-position:-82px 0;
+}
+.region-confirm-form .city-variant.yes:hover span {
+	background-position:0 -83px;
+}
+.region-confirm-form .city-variant.no:hover span {
+	background-position:-82px -83px;
+}

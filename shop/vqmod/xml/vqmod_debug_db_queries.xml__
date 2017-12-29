@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+
+	<id>DB with info</id>
+	<version>1.0.0</version>
+	<vqmver>2.4.1</vqmver>
+	<author>open4dev</author>
+
+    <file name="system/library/db.php" error="log">
+        <operation error="skip">
+            <search position="after"><![CDATA[private $driver;]]></search>
+            <add><![CDATA[ private $queries = array(); ]]></add>
+        </operation>    
+        <operation error="skip">
+            <search position="before"><![CDATA[public function query($sql) {]]></search>
+            <add><![CDATA[
+            public function log($msg) {
+                $this->queries[] = '<span style="color: #FF0000;">' . $msg . '</span>';
+            }
+            
+            public function getDebugText() {
+                $out = '';
+                $out .= "<hr>\n";
+                $out .= '<pre style="white-space: pre-wrap; padding: 0px 15px 0px 30px;">';
+                $count = 1;
+                foreach($this->queries as $q) {
+                    $out .= '<div style="float: left; margin-left: -20px; margin-top: 5px; ">' . $count . '</div><div style="background-color: #f6f6f6;padding: 4px; border: 1px solid #bbbbbb; margin-bottom: 10px;">' . $q . '</div>';
+                    $count++;
+                }
+                $out .= '</pre>' . "\n";
+                $out .= '<hr>' . "\n";
+                
+                $this->queries = array();
+                
+                return $out;
+            }
+            
+            /*
+            public function clear() {
+                $this->queries = array();                            
+            }
+            
+            public function flush() {
+                echo $this->getDebugText();
+            }
+            */
+            ]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="after"><![CDATA[public function query($sql) {]]></search>
+            <add><![CDATA[$this->queries[] = $sql;]]></add>
+        </operation>
+    </file>
+    
+    <file name="system/library/response.php" error="log">
+        <operation error="skip">
+            <search position="before"><![CDATA[public function setOutput($output) {]]></search>
+            <add><![CDATA[
+            public function getOutput() {
+                return $this->output;
+            }
+            ]]></add>
+        </operation>
+    </file>
+    <file name="system/engine/front.php" error="log">
+        <operation error="skip">
+            <search position="replace" offset="1"><![CDATA[$action = $this->execute($action);]]></search>
+            <add><![CDATA[
+                $action = $this->execute($action);
+            }
+            $response = $this->registry->get('response');
+            $out = $response->getOutput();
+            $pos = strpos($out, '</body></html>');
+            if ($pos > 0) {
+                $db = $this->registry->get('db');
+                $debug = $db->getDebugText();
+                $out = substr_replace($out, $debug . '</body></html>', $pos);
+                $response->setOutput($out);
+            }
+            ]]></add>
+        </operation>
+    </file>
+
+</modification>
+
