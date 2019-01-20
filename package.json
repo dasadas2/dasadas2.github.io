@@ -1,0 +1,25 @@
+{
+  "name": "palmparts",
+  "version": "1.0.0",
+  "description": "WebSite for selling auto parts",
+  "main": "server.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dasadas2/dasadas2.github.io.git"
+  },
+  "author": "Dmitry riZZZhik Barsukoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dasadas2/dasadas2.github.io/issues"
+  },
+  "homepage": "https://github.com/dasadas2/dasadas2.github.io#readme"
+}
