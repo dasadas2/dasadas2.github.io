@@ -16,7 +16,7 @@ var port = 4958;
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-  res.send("It is main");
+  res.render("index");
 });
 
 app.get("/:car", function (req, res) {
