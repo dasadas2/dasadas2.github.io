@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "Mont";
+    src: url("../fonts/Mont/Mont_Bold.otf");
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: "Mont";
+    src: url("../fonts/Mont/Mont_Light.otf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Mont";
+    src: url("../fonts/Mont/Mont_Regular.otf");
+    font-weight: normal;
+}

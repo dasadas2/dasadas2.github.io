@@ -1,0 +1,8 @@
+body, h1, h2, h3, h4, p, a {
+  font-family: Mont, sans-serif;
+}
+
+body {
+  padding: 0 5px 40px 5px;
+  width: 100%;
+}
