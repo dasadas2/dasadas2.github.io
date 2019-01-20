@@ -6,3 +6,63 @@ body {
   padding: 0 5px 40px 5px;
   width: 100%;
 }
+
+header {
+  font-family: Impact, Mont, sans-serif;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  height: 100px;
+}
+
+header > img {
+  position: absolute;
+  left: 25px;
+  align-self: flex-start;
+  display: inline-block;
+  height: 100px;
+}
+
+.menu {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.menu ul {
+  text-align: center;
+}
+
+.menu li {
+  margin: 10px 0;
+  padding: 0;
+  display:inline-block;
+  text-align: center;
+  font-size: 10px;
+}
+
+.cont {
+  margin: 0 0 200px 0;
+}
+
+@media screen and (min-width: 720px) {
+  body {
+    width: 90%;
+    margin: auto;
+  }
+
+  header {
+    height: 250px;
+  }
+  header > img {
+    height: 250px;
+  }
+  .menu li {
+    font-size: 20px;
+  }
+
+  .cont {
+    margin: 0;
+  }
+}
