@@ -25,6 +25,18 @@ header > img {
   height: 100px;
 }
 
+.text {
+  margin-left: 100px;
+}
+
+.text > h1 {
+  font-size: 20px;
+}
+
+.text > h2 {
+  font-size: 15px;
+}
+
 .menu {
   margin-top: 10px;
   text-align: center;
@@ -58,6 +70,16 @@ header > img {
   header > img {
     height: 250px;
   }
+  .text {
+    margin-left: 250px;
+  }
+  .text > h1 {
+    font-size: 60px;
+  }
+  .text > h2 {
+    font-size: 30px;
+  }
+
   .menu li {
     font-size: 20px;
   }
