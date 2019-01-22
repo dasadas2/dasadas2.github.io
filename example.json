@@ -6,7 +6,7 @@
   "CarName (bmw)": {
     "Car model (e30_2005-2008)": {
       "PartType (electronic)": {
-        "PartName (headlight_front_left)": {
+        "PartName (headlight_FL)": {
           "name": "Фара левая передняя",
           "PP": 2174,
           "num": ["8556AS8801"], //или ['DAASX225D', "ASSASF", 'SKLV556AUDI']
